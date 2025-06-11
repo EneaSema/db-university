@@ -8,49 +8,48 @@ Risolvere anche le query del file GROUP BY e caricarle le soluzioni in un nuovo 
 
 SOLUTIONS
 
-...sql
+```sql
 
 1. Selezionare tutti gli studenti nati nel 1990 (160), ok
 
-SELECT COUNT(`id`)
+SELECT  *
 FROM `students`
 WHERE YEAR(`date_of_birth`) = 1990
 
 2. Selezionare tutti i corsi che valgono più di 10 crediti (479) ok
 
-SELECT COUNT(`id`)
+SELECT *
 FROM `courses`
 WHERE `cfu` > 10
 
-3. Selezionare tutti gli studenti che hanno più di 30 anni, (1201)
+3. Selezionare tutti gli studenti che hanno più di 30 anni, (1000)
 
-```sql
-SELECT COUNT(`id`)
+SELECT *
 FROM `students`
 WHERE YEAR(NOW()) - YEAR(`date_of_birth`) >= 30
-```
+
 
 4. Selezionare tutti i corsi del primo semestre del primo anno di un qualsiasi corso di
    laurea (286) ok
 
-SELECT COUNT(`id`)
+SELECT *
 FROM `courses`
 WHERE `period` = "I semestre" AND `year` = 1
 
-5. Selezionare tutti gli appelli d'esame che avvengono nel pomeriggio (dopo le 14) del
+5. Selezionare tutti gli appelli d"'"esame che avvengono nel pomeriggio (dopo le 14) del"'"
    20/06/2020 (21) ok
 
-SELECT COUNT(`id`)
+SELECT *
 FROM `exams`
 WHERE `date` = DATE("2020-06-20") and `hour` >"14:00:00"
 
 6. Selezionare tutti i corsi di laurea magistrale (38) ok
 
-SELECT COUNT(`id`)
+SELECT *
 FROM `degrees`
 WHERE `name` LIKE "%magistrale%"
 
-7. Da quanti dipartimenti è composta l'università? (12) ok
+7. Da quanti dipartimenti è composta l"'"università? (12) ok
 
 SELECT COUNT(`id`)
 FROM `departments`
@@ -60,3 +59,4 @@ FROM `departments`
 SELECT COUNT(`id`)
 FROM `teachers`
 WHERE `phone` IS NULL
+```
