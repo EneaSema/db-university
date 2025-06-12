@@ -27,6 +27,8 @@ WHERE `cfu` > 10
 SELECT *
 FROM `students`
 WHERE YEAR(NOW()) - YEAR(`date_of_birth`) >= 30
+#WHERE DATE_SUB(NOW(), INTERVAL 31 YEAR) >= `date_of_birth`, (Correzione per soluzione migliore)
+#WHERE TIMESTAMPDIFF(YEAR, `date_of_birth`, CURDATE())>30 ((Correzione per soluzione migliore))
 
 
 4. Selezionare tutti i corsi del primo semestre del primo anno di un qualsiasi corso di
@@ -47,7 +49,13 @@ WHERE `date` = DATE("2020-06-20") and `hour` >"14:00:00"
 
 SELECT *
 FROM `degrees`
-WHERE `name` LIKE "%magistrale%"
+WHERE `name` LIKE "%magistrale%", rifare per `level`
+
+# soluzione corretta
+
+SELECT *
+FROM `degrees`
+WHERE `level` = "magistrale"
 
 7. Da quanti dipartimenti è composta l"'"università? (12) ok
 
