@@ -95,7 +95,7 @@ ON `course_teacher`.`teacher_id`= `teachers`.`id
 Matematica (54)
 
 ```sql
-SSELECT
+SELECT
 `teachers`.`id`,
 `teachers`.`name`,
 `teachers`.`surname`,
@@ -116,6 +116,31 @@ ON `degrees`.`department_id`= `departments`.`id`
 WHERE `departments`.`name` = "Dipartimento di Matematica"
 GROUP BY `teachers`.`id`,`departments`.`name`
 ORDER BY `teachers`.`id`
+```
+
+### SOLUZIONE MIGLIORE
+
+```sql
+
+SELECT DISTINCT
+`teachers`.`id`,
+`teachers`.`name`,
+`teachers`.`surname`,
+`teachers`.`phone`,
+`teachers`.`email`,
+`teachers`.`office_address`,
+`teachers`.`office_number`,
+`departments`.`name`
+FROM `teachers`
+INNER JOIN `course_teacher`
+ON `course_teacher`.`teacher_id`= `teachers`.`id`
+INNER JOIN `courses`
+ON `courses`.`id` = `course_teacher`.`course_id`
+INNER JOIN `degrees`
+ON `degrees`.`id` = `courses`.`degree_id`
+INNER JOIN  `departments`
+ON `degrees`.`department_id`= `departments`.`id`
+WHERE `departments`.`name` = "Dipartimento di Matematica"
 
 ```
 
@@ -125,6 +150,7 @@ per ogni esame, stampando anche il voto massimo. Successivamente,
 filtrare i tentativi con voto minimo 18.
 
 ```sql
+
 SELECT
  `students`.`id`,
  `students`.`name`,
@@ -141,6 +167,30 @@ FROM `students`
   ON `exams`.`course_id`= `courses`.`id`
 GROUP BY `students`.`id`, `courses`.`id`
 HAVING max_vote > 18
+ORDER BY `students`.`id`
+
+```
+
+### SOLUZIONI CORRETTA
+
+```sql
+
+SELECT
+ `students`.`id`,
+ `students`.`name`,
+ `courses`.`id`,
+ `courses`.`name`,
+ COUNT(*) AS count_student_of_exam,
+ MAX(`exam_student`.`vote`) AS max_vote
+FROM `students`
+ INNER JOIN `exam_student`
+  ON `students`.`id` = `exam_student`.`student_id`
+ INNER JOIN `exams`
+  ON `exam_student`.`exam_id`=`exams`.`id`
+ INNER JOIN `courses`
+  ON `exams`.`course_id`= `courses`.`id`
+GROUP BY `students`.`id`, `courses`.`id`
+HAVING max_vote >= 18
 ORDER BY `students`.`id`
 
 ```
